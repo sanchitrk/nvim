@@ -23,5 +23,7 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
--- Delete to the void register (uses a non-conflicting key)
-vim.keymap.set({ "n", "v" }, "<leader>D", [["_d]], { desc = "Delete to Void Register" })
+-- Delete to blackhole, without screwing up the yank
+vim.keymap.set({ "n", "v" }, "d", '"_d')
+-- Enable to blackhole, if you prefer
+-- vim.keymap.set({ "n", "v" }, "x", '"_x')
