@@ -10,8 +10,8 @@ vim.g.lazyvim_picker = "telescope"
 --
 -- from ThePrimegean
 --
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
 vim.opt.smartindent = true
 vim.opt.wrap = false
 vim.opt.swapfile = false
