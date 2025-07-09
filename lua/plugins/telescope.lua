@@ -15,15 +15,16 @@ return {
       end,
       desc = "Git Files",
     },
-    {
-      "<leader>ps",
-      function()
-        local input = vim.fn.input("Grep > ")
-        if input ~= "" then
-          require("telescope.builtin").grep_string({ search = input })
-        end
-      end,
-      desc = "Grep String via Input",
-    },
+    -- LazytVim got this covered, diff keymap
+    -- {
+    --   "<leader>ps",
+    --   function()
+    --     local input = vim.fn.input("Grep > ")
+    --     if input ~= "" then
+    --       require("telescope.builtin").grep_string({ search = input })
+    --     end
+    --   end,
+    --   desc = "Grep String via Input",
+    -- },
   },
 }
