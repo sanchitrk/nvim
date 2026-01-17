@@ -30,7 +30,8 @@ return {
   -- Enhanced Rust support
   {
     "mrcjkb/rustaceanvim",
-    version = "^4",
+    version = "^6", -- Recommended
+    lazy = false, -- This plugin is already lazy
     ft = { "rust" },
     opts = {
       server = {
@@ -47,6 +48,9 @@ return {
           ["rust-analyzer"] = {
             cargo = {
               allFeatures = true,
+            },
+            inlayHints = {
+              enable = false,
             },
           },
         },
