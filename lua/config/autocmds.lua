@@ -8,12 +8,23 @@
 -- e.g. vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
 --
 --
--- Auto-save when leaving a buffer
+-- Auto-save when leaving a buffer (only for normal, saveable files)
 vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertLeave" }, {
   pattern = "*",
   callback = function()
-    if vim.bo.modified then
-      vim.cmd("silent! write")
+    -- Skip if buffer is not modified or not a normal file
+    if not vim.bo.modified then
+      return
+    end
+    -- Skip special buffers (no name, not a file, readonly, etc.)
+    local bufname = vim.api.nvim_buf_get_name(0)
+    if bufname == "" or vim.bo.buftype ~= "" or vim.bo.readonly then
+      return
+    end
+    -- Attempt save and notify on failure
+    local ok, err = pcall(vim.cmd, "write")
+    if not ok then
+      vim.notify("Auto-save failed: " .. err, vim.log.levels.WARN)
     end
   end,
 })

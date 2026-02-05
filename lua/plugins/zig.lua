@@ -1,3 +1,6 @@
+-- Zig language support
+-- NOTE: zls must be installed manually and available in PATH
+--       Install via: brew install zls (macOS) or from https://github.com/zigtools/zls
 return {
   -- 1. Syntax Highlighting (Treesitter)
   {
@@ -15,9 +18,7 @@ return {
     opts = {
       servers = {
         zls = {
-          -- IMPORTANT: prevents LazyVim from overwriting your zls with Mason's version
-          mason = false,
-          -- Use the zls command from your system PATH
+          mason = false, -- Use system zls instead of Mason
           cmd = { "zls" },
           settings = {
             zls = {

@@ -1,42 +1,12 @@
 return {
-  -- Rust language server
-  {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        rust_analyzer = {
-          settings = {
-            ["rust-analyzer"] = {
-              cargo = {
-                allFeatures = true,
-                loadOutDirsFromCheck = true,
-                runBuildScripts = true,
-              },
-              checkOnSave = {
-                allFeatures = true,
-                command = "clippy",
-                extraArgs = { "--no-deps" },
-              },
-              procMacro = {
-                enable = true,
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-
-  -- Enhanced Rust support
+  -- Enhanced Rust support (rustaceanvim manages rust-analyzer)
   {
     "mrcjkb/rustaceanvim",
-    version = "^6", -- Recommended
-    lazy = false, -- This plugin is already lazy
+    version = "^6",
     ft = { "rust" },
     opts = {
       server = {
-        on_attach = function(client, bufnr)
-          -- Custom keymaps for Rust
+        on_attach = function(_, bufnr)
           vim.keymap.set("n", "<leader>cR", function()
             vim.cmd.RustLsp("codeAction")
           end, { desc = "Code Action", buffer = bufnr })
@@ -48,6 +18,16 @@ return {
           ["rust-analyzer"] = {
             cargo = {
               allFeatures = true,
+              loadOutDirsFromCheck = true,
+              runBuildScripts = true,
+            },
+            checkOnSave = {
+              allFeatures = true,
+              command = "clippy",
+              extraArgs = { "--no-deps" },
+            },
+            procMacro = {
+              enable = true,
             },
             inlayHints = {
               enable = false,

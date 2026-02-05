@@ -2,8 +2,11 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 
-vim.g.python_host_prog = "/Users/sanchitrk/bin/neovenv/bin/python"
-vim.g.python3_host_prog = "/Users/sanchitrk/bin/neovenv/bin/python"
+-- Python host configuration (uses ~/bin/neovenv if it exists)
+local neovenv = vim.fn.expand("~/bin/neovenv/bin/python3")
+if vim.fn.executable(neovenv) == 1 then
+  vim.g.python3_host_prog = neovenv
+end
 
 vim.g.lazyvim_picker = "telescope"
 
