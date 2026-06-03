@@ -24,6 +24,6 @@ vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 -- Delete to blackhole, without screwing up the yank
-vim.keymap.set({ "n", "v" }, "d", '"_d')
+vim.keymap.set({ "n", "v" }, "<leader>d", '"_d')
 -- Enable to blackhole, if you prefer
 -- vim.keymap.set({ "n", "v" }, "x", '"_x')
