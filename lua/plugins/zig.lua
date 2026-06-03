@@ -31,4 +31,70 @@ return {
       },
     },
   },
+
+  -- 3. DAP for debugging
+  {
+    "mfussenegger/nvim-dap",
+    optional = true,
+    dependencies = {
+      {
+        "mason-org/mason.nvim",
+        opts = function(_, opts)
+          opts.ensure_installed = opts.ensure_installed or {}
+          vim.list_extend(opts.ensure_installed, { "codelldb" })
+        end,
+      },
+    },
+    opts = function()
+      local dap = require("dap")
+      if not dap.adapters.codelldb then
+        require("dap").adapters.codelldb = {
+          type = "server",
+          port = "${port}",
+          executable = {
+            command = "codelldb",
+            args = { "--port", "${port}" },
+          },
+        }
+      end
+      dap.configurations.zig = {
+        {
+          name = "Launch executable",
+          type = "codelldb",
+          request = "launch",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/zig-out/bin/", "file")
+          end,
+          cwd = "${workspaceFolder}",
+          stopOnEntry = false,
+          args = {},
+        },
+      }
+    end,
+  },
+
+  -- 4. Formatting (conform.nvim)
+  {
+    "stevearc/conform.nvim",
+    optional = true,
+    opts = {
+      formatters_by_ft = {
+        zig = { "zigfmt" },
+      },
+    },
+  },
+
+  -- 5. Test Runner (neotest)
+  {
+    "nvim-neotest/neotest",
+    optional = true,
+    dependencies = {
+      "lawrence-laz/neotest-zig",
+    },
+    opts = {
+      adapters = {
+        ["neotest-zig"] = {},
+      },
+    },
+  },
 }
